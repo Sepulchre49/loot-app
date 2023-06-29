@@ -1,5 +1,7 @@
+const mongoose = require("mongoose");
+
 module.exports = function(req, res, next) {
-    let map = new Map();
+    const map = new Map();
     res.records.forEach(record => {
         const { Item, ItemId, From, Name } = record;
 
@@ -12,10 +14,9 @@ module.exports = function(req, res, next) {
         if (!map.has(ItemId)) {
             map.set(ItemId, value);
         } else {
-            let newVal = map.get(ItemId);
+            const newVal = map.get(ItemId);
             newVal.reserves = [...newVal.reserves, {"player": Name, "modifier": 0}] 
         }
-
     });
 
     res.softreserves = map;
