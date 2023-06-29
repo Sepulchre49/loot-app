@@ -5,7 +5,7 @@ module.exports = function (req, res, next) {
         columns: true
     });
     res.records.forEach(reserve => {
-        
+        // Send data to DB
     });
     next();
 }
