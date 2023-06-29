@@ -1,1 +1,6 @@
 <p>Data received!</p>
+<ul>
+    <% softreserves.forEach(reserve => { %>
+        <li><%=`${reserve.Name} reserved ${reserve.Item} from ${reserve.From} on ${reserve.Date}`%></li>
+    <% }); %>
+</ul>
