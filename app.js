@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 // Config environment
 dotenv.config();
-const port = process.env.PORT || 3333;
+const port = process.env.PORT || 3000;
 
 
 // Set up middleware and view engine
