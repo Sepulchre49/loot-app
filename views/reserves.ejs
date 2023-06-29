@@ -1,0 +1,8 @@
+<% softreserves.forEach(item => { %>
+    <%= item.name %>
+    <% item.reserves.forEach(reserve => { %>
+        <ul>
+            <%= `${reserve.player}: ${reserve.modifier}`%>
+        </ul>
+    <% }); %>
+<% }); %>

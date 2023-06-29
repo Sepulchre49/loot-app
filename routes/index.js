@@ -13,8 +13,7 @@ router.post('/', [sanitize, parse] , (req, res) => {
     if (!err.isEmpty()) {
         return res.status(422).json({ err: err.array() });
     }
-    console.log(res.records);
-    res.render('upload.ejs', { softreserves: res.records });
+    res.render('reserves.ejs', { softreserves: res.softreserves });
 });
 
 module.exports = router;
