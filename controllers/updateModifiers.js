@@ -6,7 +6,7 @@ module.exports = async function(req, res, next) {
         let cursor = await SoftReserve.findOne().exec();
 
         // If db query returned no results, we need to create a new SoftReserve object
-        if (cursor.length == 0) {
+        if (!cursor || cursor.length == 0) {
             console.debug("Database was empty, creating empty SoftReserve object");
             cursor = new SoftReserve({
                 date: Date.now(),
@@ -30,13 +30,14 @@ module.exports = async function(req, res, next) {
                 if (i != -1) {
                     currItem.reserves[i].modifier += 20;
                     cursor.reserves.set(ItemId, currItem);
+                    cursor.markModified('reserves'); // This tells mongoose we need to save!
                 } else {
                     currItem.reserves = [...currItem.reserves, {"player": Name, "modifier": 0}];
                 }
             }
         });
         // Update database
-        await cursor.save(); // Todo: this is not actually updating the database, even tho the returned document has the updated modifier values. Need to fix
+        await cursor.save(); 
         // Pass the reserve map along the the view layer
         res.softreserves = cursor.reserves;
 
