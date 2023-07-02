@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Item = require("../models/Item");
 const Reserve = require('../models/Reserve');
+const Character = require('../models/Character');
 
 module.exports = async function(req, res, next) {
     for (let record of res.records) {
@@ -9,44 +10,46 @@ module.exports = async function(req, res, next) {
             Item: itemName, 
             ItemId: id, 
             From: boss, 
-            Name: playerName, 
+            Name: characterName, 
             Date: reserveDate 
         } = record;
         
-        // Check if item is already in the DB
         try {
-            let item = await Item.findOne({_id: id}).populate('reserves').exec();
-            // Create the Item object if it wasn't found in the db
+            let fetchOps = [Item.findOne({_id: id}), Character.findOne({_id: characterName})];
+            let [item, character] = await Promise.all(fetchOps);
+
             if (!item) {
                 item = new Item({
                     _id: id,
                     name: itemName,
-                    source: boss
+                    source: boss,
+                    reserves: new Map()
                 });
             }
-            let reserve;
-            // Check to see if this player already has a modifier
-            if (item.reserves.has(playerName)) {
-                console.debug(`Updating modifier for ${playerName} on ${item.name}`);
-                reserve = item.reserves.get(playerName);
-                reserve.modifier += 20;
-            } else {
-                console.debug("Creating new reserve");
-                // Create the Reserve object if it doesn't exist
-                reserve = new Reserve({
-                    item: item,
-                    date: reserveDate
+
+            if (!character) {
+                character = new Character({
+                    _id: characterName,
+                    activeReserves: []
                 });
             }
-            // Update the item object
-            item.reserves.set(playerName, reserve);
-            // Save to db
-            await item.save();
-            await reserve.save();
+
+            const reserve = new Reserve({
+                item: item,
+                character: character,
+                modifier: item.reserves.has(character._id) ? item.reserves.get(character._id).modifier : 0,
+                date: reserveDate
+            })
+
+            item.reserves.set(character._id, reserve);
+            character.activeReserves.push(reserve);
+
+            let saveOps = [item.save(), character.save(), reserve.save()];
+            await Promise.all(saveOps);
         } catch (err) {
-            console.error("Error performing database access:", err);
+            console.error("Error updating modifiers:", err);
         }
     }
-
+    
     next();
 }

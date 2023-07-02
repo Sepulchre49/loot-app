@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Reserve = require('./Reserve');
 
 const ItemSchema = new mongoose.Schema({
     _id: Number,
@@ -6,7 +7,7 @@ const ItemSchema = new mongoose.Schema({
     source: String,
     reserves: {
         type: Map,
-        of: { 
+        of: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Reserve"
         },

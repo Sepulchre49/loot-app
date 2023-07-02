@@ -5,9 +5,12 @@ const ReserveSchema = new mongoose.Schema({
         type: Number,
         ref: "Item"
     },
+    character: {
+        type: String,
+        ref: "Character"
+    },
     modifier: {type: Number, default: 0},
     date: Date,
-    isActive: {type: Boolean, default: true}
 });
 
 module.exports = mongoose.model("Reserve", ReserveSchema);
