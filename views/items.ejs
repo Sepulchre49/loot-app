@@ -1,0 +1,8 @@
+<% items.forEach(item => { %>
+    <%= item.name %>
+    <% item.reserves.forEach((reserve, player) => { %>
+        <ul>
+            <%= `${player}: ${reserve.modifier}`%>
+        </ul>
+    <% }); %>
+<% }); %>

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const index = require('./routes/index');
+const items = require('./routes/items');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({limit: "1mb", extended: true}));
 // Routing middleware
 app.use('/', index);
-
+app.use('/items', items);
 
 async function startApp() {
     // Connect to db

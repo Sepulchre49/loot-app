@@ -14,8 +14,7 @@ router.post('/', [sanitize, parse, updateReserves] , (req, res) => {
     if (!err.isEmpty()) {
         return res.status(422).json({ err: err.array() });
     }
-    //res.render('reserves.ejs', { softreserves: res.softreserves });
-    res.status(200).send("All good, will render eventually!");
+    res.redirect(reserves);
 });
 
 module.exports = router;
