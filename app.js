@@ -9,7 +9,6 @@ const mongoose = require('mongoose');
 dotenv.config();
 const port = process.env.PORT || 3000;
 
-
 // Set up middleware and view engine
 app.set('view engine', 'ejs');
 app.use(express.json());

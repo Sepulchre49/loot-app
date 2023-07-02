@@ -27,7 +27,7 @@ module.exports = async function(req, res, next) {
             let reserve;
             // Check to see if this player already has a modifier
             if (item.reserves.has(playerName)) {
-                console.debug("Updating modifier");
+                console.debug(`Updating modifier for ${playerName} on ${item.name}`);
                 reserve = item.reserves.get(playerName);
                 reserve.modifier += 20;
             } else {

@@ -14,7 +14,7 @@ router.post('/', [sanitize, parse, updateReserves] , (req, res) => {
     if (!err.isEmpty()) {
         return res.status(422).json({ err: err.array() });
     }
-    res.redirect(reserves);
+    res.redirect('/items');
 });
 
 module.exports = router;
