@@ -1,0 +1,13 @@
+<table>
+<% data.forEach(boss => { %>
+    <th><%= boss._id %></th>    
+    <% boss.items.forEach(item => { %>
+        <tr>
+            <td><%= item.name %></td>
+            <% item.reserves.forEach(reserve => { %>
+                <td><%= reserve.character %>: <%= reserve.modifier %></td>
+            <% }); %>
+        </tr>
+    <% }) %>
+<% }) %>
+</table>
