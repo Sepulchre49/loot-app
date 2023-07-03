@@ -11,6 +11,7 @@ const port = process.env.PORT || 3000;
 
 // Set up middleware and view engine
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({limit: "1mb", extended: true}));
 // Routing middleware

@@ -1,0 +1,15 @@
+.loot-sheet {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+}
+
+.boss {
+    padding: 12px 0px 12px 10px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}
+
+.item {
+    padding: 8px;
+}

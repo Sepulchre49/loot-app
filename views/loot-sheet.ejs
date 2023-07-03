@@ -1,9 +1,10 @@
-<table>
+<link href="loot-sheet.css" rel="stylesheet" type="text/css">
+<table class="loot-sheet">
 <% data.forEach(boss => { %>
-    <th><%= boss._id %></th>    
+    <th class="boss" colspan="30"><%= boss._id %></th>    
     <% boss.items.forEach(item => { %>
         <tr>
-            <td><%= item.name %></td>
+            <td class="item"><%= item.name %></td>
             <% item.reserves.forEach(reserve => { %>
                 <td><%= reserve.character %>: <%= reserve.modifier %></td>
             <% }); %>
